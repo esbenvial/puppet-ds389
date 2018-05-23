@@ -167,14 +167,14 @@ file { "/home/text.txt":
     require => Exec[$instance],
   }
 
-  exec { $instance-ssl:
+  exec { "${instance-ssl}":
     command => "/usr/bin/ldapmodify -x -D \"cn=Directory Manager\" -w ${rootdnpasswd} -f /tmp/ssl.ldif -H 'ldap://localhost'",
     unless  => "/usr/bin/grep 'nsslapd-security: on' ${instance_dir}/dse.ldif",
     require => [ Exec[$instance], Nsstools::Add_cert_and_key[$cert_name] ],
     notify  => Service["dirsrv@${::hostname}"],
   }
 
-  exec { $instance-rsa:
+  exec { "${instance-rsa}":
     command => "/usr/bin/ldapmodify -x -D \"cn=Directory Manager\" -w ${rootdnpasswd} -f /tmp/rsa.ldif -H 'ldap://localhost'",
     unless  => "/usr/bin/grep 'nsSSLActivation: on' ${instance_dir}/dse.ldif",
     require => [
@@ -184,7 +184,7 @@ file { "/home/text.txt":
   }
 
   if false {
-    exec { $instance-admin-replica:
+    exec { "${instance-admin-replica}":
       command => "/usr/bin/ldapmodify -x -D \"cn=Directory Manager\" -w ${rootdnpasswd} -f /tmp/replica-admin.ldif -H 'ldap://localhost'",
       unless  => "/usr/bin/grep 'cn=replica,cn=\"o=netscaperoot\",cn=mapping tree,cn=config' ${instance_dir}/dse.ldif",
       require => [
@@ -194,7 +194,7 @@ file { "/home/text.txt":
     }
 
 
-    exec { $instance-admin-replagreement:
+    exec { "${instance-admin-replagreement}":
       command => "/usr/bin/ldapmodify -x -D \"cn=Directory Manager\" -w ${rootdnpasswd} -f /tmp/replagreement-admin.ldif -H 'ldap://localhost'",
       unless  => "/usr/bin/grep 'cn=<%= @replication_aggrement %>,cn=replica,cn=\"o=netscaperoot\",cn=mapping tree,cn=config' ${instance_dir}/dse.ldif",
       require => [
