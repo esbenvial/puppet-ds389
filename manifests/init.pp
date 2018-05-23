@@ -85,39 +85,7 @@ class ds389 (
     owner   => 'dirsrv',
   }
 
-  nsstools::create { $certdir:
-    owner          => 'dirsrv',
-    group          => 'dirsrv',
-    mode           => '0660',
-    password       => $key_password,
-    manage_certdir => false,
-    enable_fips    => false,
-    require        => [
-      File['globalsign-root'],
-      Exec['ssl_cert_presence'],
-      Exec['ssl_key_presence'],
-      Exec['ssl_intermediate_presence'],
-    ]
-  }
 
-  nsstools::add_cert { 'ca':
-    certdir => $certdir,
-    cert    => $ssl_ca_location,
-    require => Nsstools::Create[$certdir],
-  }
-
-  nsstools::add_cert { 'intermediate':
-    certdir => $certdir,
-    cert    => $ssl_intermediate_location,
-    require => Nsstools::Add_cert['ca'],
-  }
-
-  nsstools::add_cert_and_key{ $cert_name:
-    certdir => $certdir,
-    cert    => $ssl_cert_location,
-    key     => $ssl_key_location,
-    require => Nsstools::Add_cert['intermediate'],
-  }
 
   file { 'ssl.ldif':
     path    => 'tmp/ssl.ldif',
@@ -208,6 +176,41 @@ class ds389 (
 
 
   if $osfamily == 'redhat' {
+
+    nsstools::create { $certdir:
+      owner          => 'dirsrv',
+      group          => 'dirsrv',
+      mode           => '0660',
+      password       => $key_password,
+      manage_certdir => false,
+      enable_fips    => false,
+      require        => [
+        File['globalsign-root'],
+        Exec['ssl_cert_presence'],
+        Exec['ssl_key_presence'],
+        Exec['ssl_intermediate_presence'],
+      ]
+    }
+
+    nsstools::add_cert { 'ca':
+      certdir => $certdir,
+      cert    => $ssl_ca_location,
+      require => Nsstools::Create[$certdir],
+    }
+
+    nsstools::add_cert { 'intermediate':
+      certdir => $certdir,
+      cert    => $ssl_intermediate_location,
+      require => Nsstools::Add_cert['ca'],
+    }
+
+    nsstools::add_cert_and_key{ $cert_name:
+      certdir => $certdir,
+      cert    => $ssl_cert_location,
+      key     => $ssl_key_location,
+      require => Nsstools::Add_cert['intermediate'],
+    }
+
     firewalld_rich_rule { 'Accept ldaps port':
       ensure => present,
       zone   => 'public',
