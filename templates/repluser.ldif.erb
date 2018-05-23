@@ -1,0 +1,10 @@
+dn: cn=replication manager,cn=config
+changetype: add
+objectClass: inetorgperson
+objectClass: person
+objectClass: top
+cn: replication manager
+sn: RM
+userPassword: <%= @repl_pass %>
+passwordExpirationTime: 20380119031407Z
+nsIdleTimeout: 0

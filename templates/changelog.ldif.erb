@@ -1,0 +1,7 @@
+dn: cn=changelog5,cn=config
+changetype: add
+objectClass: top
+objectClass: extensibleObject
+cn: changelog5
+nsslapd-changelogdir: /var/lib/dirsrv/<%= @instance %>/changelogdb
+nsslapd-changelogmaxage: 6w

@@ -1,0 +1,37 @@
+[General]    
+FullMachineName=         <%= @fqdn %>
+SuiteSpotUserID=         dirsrv
+SuiteSpotGroup=          dirsrv
+ConfigDirectoryAdminID=  admin
+ConfigDirectoryAdminPwd= <%= @adminpasswd %>
+ConfigDirectoryLdapURL=  <%= @configdir_ldapurl %>
+AdminDomain=             <%= @domain %>
+
+[slapd]
+ServerPort=        389    
+ServerIdentifier=  <%= @hostname %>
+Suffix=            <%= @suffix %>
+RootDN=            cn=Directory Manager    
+RootDNPwd=         <%= @rootdnpasswd %>
+AddSampleEntries=  No
+ConfigFile = /tmp/repluser.ldif
+ConfigFile = /tmp/changelog.ldif
+ConfigFile = /tmp/replica.ldif
+ConfigFile = /tmp/replagreement.ldif
+
+<% if @master -%>
+SlapdConfigForMC=  Yes
+UseExistingMC=     0
+<% else -%>
+SlapdConfigForMC=  No
+UseExistingMC=     1
+ConfigFile = /tmp/netscaperootdb.ldif
+
+
+<% end %>
+
+[admin]
+SysUser=                dirsrv
+Port=                   9830
+ServerAdminID=          admin
+ServerAdminPwd=         <%= @adminpasswd %>

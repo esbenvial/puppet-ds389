@@ -1,0 +1,865 @@
+dn: cn=schema
+objectClass: top
+objectClass: ldapSubentry
+objectClass: subschema
+cn: schema
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.1 
+  NAME 'scVLAN' 
+  DESC 'The currently preferred VLAN of the user' 
+  EQUALITY integerMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 
+  SINGLE-VALUE 
+  X-ORIGIN 'SC-specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.2 
+  NAME 'scPrefGroups' 
+  DESC 'List of available sc-groups (/-separated), Preferred group before !, e.g. hum-it!hum-it/hum-fak' 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  SINGLE-VALUE 
+  X-ORIGIN 'SC-scpecials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.3 
+  NAME 'wsMac' 
+  DESC 'MAC address of WS registered to user in maximal, colon separated hex notation, eg. 00:00:92:90:ee:e2' 
+  EQUALITY caseIgnoreIA5Match 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 
+  X-ORIGIN 'SC-specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.4 
+  NAME 'macRegistered' 
+  DESC 'Date when this WS was registered' 
+  EQUALITY integerMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 
+  SINGLE-VALUE
+  X-ORIGIN 'SC-specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.5 
+  NAME 'macRegTtd' 
+  DESC 'Date when this 
+  WS should be unregistered' 
+  EQUALITY integerMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 
+  SINGLE-VALUE
+  X-ORIGIN 'SC-specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.6 
+  NAME 'idcNumber' 
+  DESC 'ID-Card KU-Number, e.g. 226563' 
+  EQUALITY caseIgnoreMatch 
+  ORDERING caseIgnoreOrderingMatch 
+  SUBSTR caseIgnoreSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  USAGE userApplications
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.7 
+  NAME 'idcSectorX' 
+  DESC 'Hardwired serial number of ID-Card, e.g. 1817503497 used by SC printsys' 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+  X-ORIGIN 'SC-specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.8 
+  NAME 'idcSectorXaux' 
+  DESC 'Hardwired serial number of ID-Card, e.g. 1817503497 used by SC printsys (secondary id-card)' 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+  X-ORIGIN 'SC-specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.9 
+  NAME 'scMailAlias' 
+  DESC 'Accept mail to these addresses as well' 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+  X-ORIGIN 'SC-specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.10 
+  NAME 'scMailDestination' 
+  DESC 'Deliver all mail to this address!' 
+  EQUALITY caseIgnoreMatch 
+  ORDERING caseIgnoreOrderingMatch 
+  SUBSTR caseIgnoreSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  USAGE userApplications
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.11 
+  NAME 'scActive' 
+  DESC 'Flag: User activated for SC' 
+  EQUALITY caseIgnoreMatch 
+  ORDERING caseIgnoreOrderingMatch 
+  SUBSTR caseIgnoreSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  USAGE userApplications
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.12 
+  NAME 'idcSectorXmaster' 
+  DESC 'Locally defined serial number of ID-Card, e.g. 1817503497. Overrides any externally supplied serial number. Used by SC printsys (secondary id-card)' 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+  X-ORIGIN 'SC-specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.13 
+  NAME 'scPhoneID' 
+  DESC 'Local phonenumber supplied IP phone terminal' 
+  EQUALITY caseIgnoreMatch 
+  ORDERING caseIgnoreOrderingMatch 
+  SUBSTR caseIgnoreSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  USAGE userApplications 
+  X-ORIGIN 'SC-specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.14 
+  NAME 'scHumAccount' 
+  DESC 'AD: hum2005-account' 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  SINGLE-VALUE 
+  X-ORIGIN 'SC-specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.15 
+  NAME 'scTTD' 
+  DESC 'TimeToDie/Delete' 
+  EQUALITY integerMatch 
+  ORDERING integerOrderingMatch 
+  SUBSTR caseExactSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 
+  SINGLE-VALUE 
+  USAGE userApplications 
+  X-ORIGIN 'SC-specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.16 
+  NAME 'scTTA' 
+  DESC 'TimeToActivate' 
+  EQUALITY integerMatch 
+  ORDERING integerOrderingMatch 
+  SUBSTR caseExactSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 
+  SINGLE-VALUE 
+  USAGE userApplications 
+  X-ORIGIN 'SC-specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.17 
+  NAME 'scLMPassword' 
+  DESC 'LanManager Password' 
+  EQUALITY caseIgnoreIA5Match 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{32} 
+  SINGLE-VALUE
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.18 
+  NAME 'sshPublicKey' 
+  DESC 'OpenSSH Public key' 
+  EQUALITY octetStringMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.40
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.19 
+  NAME 'scMailAccept' 
+  DESC 'Modtag post fra (World|Local)' 
+  EQUALITY caseIgnoreMatch 
+  ORDERING caseIgnoreOrderingMatch 
+  SUBSTR caseIgnoreSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  SINGLE-VALUE 
+  USAGE userApplications
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.20 
+  NAME 'scTTE' 
+  DESC 'TimeToExpire' 
+  EQUALITY integerMatch 
+  ORDERING integerOrderingMatch 
+  SUBSTR caseExactSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 
+  SINGLE-VALUE 
+  USAGE userApplications 
+  X-ORIGIN 'SC-specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.21 
+  NAME 'resourceType' 
+  DESC 'Resource is: fileshare, mailaccount etc' 
+  EQUALITY caseIgnoreMatch 
+  ORDERING caseIgnoreOrderingMatch 
+  SUBSTR caseIgnoreSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  SINGLE-VALUE 
+  USAGE userApplications 
+  X-ORIGIN 'SC-specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.22 
+  NAME 'scTTW' 
+  DESC 'Time To Warn - When to notify imminent deactivation' 
+  EQUALITY integerMatch 
+  ORDERING integerOrderingMatch 
+  SUBSTR caseExactSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 
+  SINGLE-VALUE 
+  USAGE userApplications 
+  X-ORIGIN 'SC-specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.23 
+  NAME 'resourceStatus' 
+  DESC 'Resourcens aktuelle tilstand: ready, being created...' 
+  EQUALITY caseIgnoreMatch 
+  ORDERING caseIgnoreOrderingMatch 
+  SUBSTR caseIgnoreSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  SINGLE-VALUE 
+  USAGE userApplications 
+  X-ORIGIN 'SC-specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.24 
+  NAME 'scMaxMembers' 
+  DESC 'Max number of members allowed in this group (zero or undefined: unlimited)' 
+  EQUALITY integerMatch 
+  ORDERING integerOrderingMatch 
+  SUBSTR caseExactSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 
+  SINGLE-VALUE 
+  USAGE userApplications
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.25 
+  NAME 'gid' 
+  DESC 'Primary Group Name' 
+  EQUALITY caseIgnoreMatch 
+  ORDERING caseIgnoreOrderingMatch 
+  SUBSTR caseIgnoreSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  USAGE userApplications 
+  X-ORIGIN 'SC-Specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.26 
+  NAME 'resourceMax' 
+  DESC 'Max #instances of this resource per user/group (0 == unlimited)' 
+  EQUALITY integerMatch 
+  ORDERING integerOrderingMatch 
+  SUBSTR caseExactSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 
+  SINGLE-VALUE 
+  USAGE userApplications 
+  X-ORIGIN 'SC-Specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.27 
+  NAME 'scStatus' 
+  DESC 'Current Status' 
+  EQUALITY caseIgnoreMatch 
+  ORDERING caseIgnoreOrderingMatch 
+  SUBSTR caseIgnoreSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  SINGLE-VALUE 
+  USAGE userApplications 
+  X-ORIGIN 'SC-Specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.28 
+  NAME 'reqActivate' 
+  DESC 'Epoch when to Activate' 
+  EQUALITY caseIgnoreMatch 
+  ORDERING caseIgnoreOrderingMatch 
+  SUBSTR caseIgnoreSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  SINGLE-VALUE 
+  USAGE userApplications 
+  X-ORIGIN 'SC-Specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.29 
+  NAME 'reqExpire' 
+  DESC 'Epoch when to Expire' 
+  EQUALITY integerMatch 
+  ORDERING integerOrderingMatch 
+  SUBSTR caseExactSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 
+  SINGLE-VALUE 
+  USAGE userApplications 
+  X-ORIGIN 'SC-Specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.30 
+  NAME 'scRequest' 
+  DESC 'What is requested?' 
+  EQUALITY caseIgnoreMatch 
+  ORDERING caseIgnoreOrderingMatch 
+  SUBSTR caseIgnoreSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  SINGLE-VALUE 
+  USAGE userApplications 
+  X-ORIGIN 'SC-Specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.31 
+  NAME 'scConfirm' 
+  DESC 'Who confirmed this' 
+  EQUALITY distinguishedNameMatch 
+  SUBSTR caseIgnoreSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.12 
+  SINGLE-VALUE 
+  USAGE userApplications 
+  X-ORIGIN 'SC-Specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.32 
+  NAME 'reqComment' 
+  DESC 'Begrundelse for request' 
+  EQUALITY caseIgnoreMatch 
+  ORDERING caseIgnoreOrderingMatch 
+  SUBSTR caseIgnoreSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  SINGLE-VALUE 
+  USAGE userApplications 
+  X-ORIGIN 'SC-Specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.34 
+  NAME 'scPrevStat' 
+  DESC 'Previous Guest Status' 
+  EQUALITY caseIgnoreMatch 
+  ORDERING caseIgnoreOrderingMatch 
+  SUBSTR caseIgnoreSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  USAGE userApplications
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.35 
+  NAME 'resourceAction' 
+  EQUALITY caseIgnoreMatch 
+  ORDERING caseIgnoreOrderingMatch 
+  SUBSTR caseIgnoreSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  USAGE userApplications 
+  X-ORIGIN 'SC-Specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.36 
+  NAME 'resourceStatusDesc' 
+  EQUALITY caseIgnoreMatch 
+  ORDERING caseIgnoreOrderingMatch 
+  SUBSTR caseIgnoreSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  USAGE userApplications 
+  X-ORIGIN 'SC-Specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.37 
+  NAME ( 'resourceParam0' 'resourceParam' ) 
+  DESC 'Argument 0' 
+  EQUALITY caseIgnoreMatch 
+  ORDERING caseIgnoreOrderingMatch 
+  SUBSTR caseIgnoreSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  USAGE userApplications 
+  X-ORIGIN 'SC-Specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.38 
+  NAME 'resourceParam1' 
+  DESC 'Argument 1' 
+  EQUALITY caseIgnoreMatch 
+  ORDERING caseIgnoreOrderingMatch 
+  SUBSTR caseIgnoreSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  USAGE userApplications 
+  X-ORIGIN 'SC-Specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.39 
+  NAME 'resourceParam2' 
+  DESC 'Argument 2' 
+  EQUALITY caseIgnoreMatch 
+  ORDERING caseIgnoreOrderingMatch 
+  SUBSTR caseIgnoreSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  USAGE userApplications 
+  X-ORIGIN 'SC-Specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.40 
+  NAME 'resourceParam3' 
+  DESC 'Argument 3' 
+  EQUALITY caseIgnoreMatch 
+  ORDERING caseIgnoreOrderingMatch 
+  SUBSTR caseIgnoreSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  USAGE userApplications 
+  X-ORIGIN 'SC-Specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.41 
+  NAME 'resourceParam4' 
+  DESC 'Argument 4' 
+  EQUALITY caseIgnoreMatch 
+  ORDERING caseIgnoreOrderingMatch 
+  SUBSTR caseIgnoreSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  USAGE userApplications 
+  X-ORIGIN 'SC-Specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.42 
+  NAME 'resourceParam5' 
+  DESC 'Argument 5' 
+  EQUALITY caseIgnoreMatch 
+  ORDERING caseIgnoreOrderingMatch 
+  SUBSTR caseIgnoreSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  USAGE userApplications 
+  X-ORIGIN 'SC-Specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.43 
+  NAME 'resourceParam6' 
+  DESC 'Argument 6' 
+  EQUALITY caseIgnoreMatch 
+  ORDERING caseIgnoreOrderingMatch 
+  SUBSTR caseIgnoreSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  USAGE userApplications 
+  X-ORIGIN 'SC-Specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.44 
+  NAME 'resourceParam7' 
+  DESC 'Argument 7' 
+  EQUALITY caseIgnoreMatch 
+  ORDERING caseIgnoreOrderingMatch 
+  SUBSTR caseIgnoreSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  USAGE userApplications 
+  X-ORIGIN 'SC-Specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.45 
+  NAME 'resourceParam8' 
+  DESC 'Argument 8' 
+  EQUALITY caseIgnoreMatch 
+  ORDERING caseIgnoreOrderingMatch 
+  SUBSTR caseIgnoreSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  USAGE userApplications 
+  X-ORIGIN 'SC-Specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.46 
+  NAME 'resourceParam9' 
+  DESC 'Argument 9' 
+  EQUALITY caseIgnoreMatch 
+  ORDERING caseIgnoreOrderingMatch 
+  SUBSTR caseIgnoreSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  USAGE userApplications 
+  X-ORIGIN 'SC-Specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.47 
+  NAME 'reqApprover' 
+  DESC 'Who approved this guest' 
+  EQUALITY distinguishedNameMatch 
+  SUBSTR caseIgnoreSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.12 
+  USAGE userApplications 
+  X-ORIGIN 'SC-Specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.48 
+  NAME 'reqApproveDate' 
+  DESC 'Date of latest approval (day-of-epoch)' 
+  EQUALITY integerMatch 
+  ORDERING integerOrderingMatch 
+  SUBSTR caseExactSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 
+  USAGE userApplications 
+  X-ORIGIN 'SC-Specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.49 
+  NAME 'scPhondex' 
+  DESC 'Phonetic Index String' 
+  EQUALITY caseExactMatch 
+  ORDERING caseIgnoreOrderingMatch 
+  SUBSTR caseExactSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  SINGLE-VALUE 
+  USAGE userApplications 
+  X-ORIGIN 'SC-Specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.50 
+  NAME 'devicePnt' 
+  DESC 'Pointer to Device owned by scResource' 
+  EQUALITY distinguishedNameMatch 
+  SUBSTR caseIgnoreSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.12 
+  USAGE userApplications 
+  X-ORIGIN 'SC-Specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.51 
+  NAME 'scEgressVLAN' 
+  DESC 'Egress-VLANID attribut i Free Radius' 
+  EQUALITY integerMatch 
+  ORDERING integerOrderingMatch 
+  SUBSTR caseExactSubstringsMatch 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 
+  USAGE userApplications 
+  X-ORIGIN 'SC-Specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.52 
+  NAME 'scFac' 
+  DESC 'Fakultetsbegnelse (eg HUM, SCI)' 
+  EQUALITY 2.5.13.2 
+  ORDERING 2.5.13.3 
+  SUBSTR 2.5.13.4 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  USAGE userApplications 
+  X-APPROX '1.3.6.1.4.1.26027.1.4.1'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.53 
+  NAME 'scDpt' 
+  DESC 'Institutbetegnelse (Department) (eg EGR, TORS)' 
+  EQUALITY 2.5.13.2 
+  ORDERING 2.5.13.3 
+  SUBSTR 2.5.13.4 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  USAGE userApplications 
+  X-APPROX '1.3.6.1.4.1.26027.1.4.1'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.54 
+  NAME 'scSct' 
+  DESC 'Sektionsbetegnelse (Section) (eg OEKO, IT)' 
+  EQUALITY 2.5.13.2 
+  ORDERING 2.5.13.3 
+  SUBSTR 2.5.13.4 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  USAGE userApplications 
+  X-APPROX '1.3.6.1.4.1.26027.1.4.1'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.55 
+  NAME 'scUclass' 
+  DESC 'User Class (eg VIP, TAP, DVIP)' 
+  EQUALITY 2.5.13.2 
+  ORDERING 2.5.13.3 
+  SUBSTR 2.5.13.4 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  USAGE userApplications 
+  X-APPROX '1.3.6.1.4.1.26027.1.4.1'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.56 
+  NAME 'scUtype' 
+  DESC 'User Type (eg Prof, Lek, Adj, HK, AC, UV)' 
+  EQUALITY 2.5.13.2 
+  ORDERING 2.5.13.3 
+  SUBSTR 2.5.13.4 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  USAGE userApplications 
+  X-APPROX '1.3.6.1.4.1.26027.1.4.1'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.57 
+  NAME 'scQuotaMailStore' 
+  DESC 'Personal quota in mail store' 
+  EQUALITY 2.5.13.2 
+  ORDERING 2.5.13.3 
+  SUBSTR 2.5.13.4 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  SINGLE-VALUE 
+  USAGE userApplications 
+  X-APPROX '1.3.6.1.4.1.26027.1.4.1' 
+  X-ORIGIN 'SC-specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.58 
+  NAME 'scQuotaCloudDrive' 
+  DESC 'Personal quota in cloud drive' 
+  EQUALITY 2.5.13.2 
+  ORDERING 2.5.13.3 
+  SUBSTR 2.5.13.4 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  SINGLE-VALUE 
+  USAGE userApplications 
+  X-APPROX '1.3.6.1.4.1.26027.1.4.1' 
+  X-ORIGIN 'SC-specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.59 
+  NAME 'scQuotaPdrive' 
+  DESC 'Personal quota in P-Drive' 
+  EQUALITY 2.5.13.2 
+  ORDERING 2.5.13.3 
+  SUBSTR 2.5.13.4 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  SINGLE-VALUE 
+  USAGE userApplications 
+  X-APPROX '1.3.6.1.4.1.26027.1.4.1' 
+  X-ORIGIN 'SC-specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.60
+  NAME 'scvlanname'
+  DESC 'VLAN-navn efter ny standard'
+  EQUALITY 2.5.13.2
+  ORDERING 2.5.13.3
+  SUBSTR 2.5.13.4
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+  SINGLE-VALUE
+  USAGE userApplications
+  X-APPROX '1.3.6.1.4.1.26027.1.4.1'
+  X-ORIGIN 'SC-Specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.61
+  NAME 'resAccessGroup' 
+  DESC 'Group giving access to this ressource' 
+  SUP 2.5.4.49 
+  EQUALITY 2.5.13.1 
+  SUBSTR 2.5.13.4 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.12 
+  USAGE userApplications 
+  X-ORIGIN 'IDM-Specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.62
+  NAME 'resOwner' 
+  DESC 'Group of owners' 
+  SUP 2.5.4.49 
+  EQUALITY 2.5.13.1 
+  SUBSTR 2.5.13.4 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.12 
+  USAGE userApplications 
+  X-ORIGIN 'IDM-Specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.63
+  NAME 'resType' 
+  DESC 'Ressource Type' 
+  EQUALITY 2.5.13.2 
+  ORDERING 2.5.13.3 
+  SUBSTR 2.5.13.4 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  SINGLE-VALUE 
+  USAGE userApplications 
+  X-APPROX '1.3.6.1.4.1.26027.1.4.1' 
+  X-ORIGIN 'IDM-Specials'
+  )
+attributeTypes: ( 1.3.6.1.1.4.1.739.4000.1.64
+  NAME 'resAuthenticate' 
+  DESC 'How to authenticate' 
+  EQUALITY 2.5.13.2 
+  ORDERING 2.5.13.3 
+  SUBSTR 2.5.13.4 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  USAGE userApplications 
+  X-APPROX '1.3.6.1.4.1.26027.1.4.1' 
+  X-ORIGIN 'IDM-Specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.65
+  NAME 'resApprover' 
+  DESC 'Pointers to rules specifying approvers' 
+  SUP 2.5.4.49 
+  EQUALITY 2.5.13.1 
+  SUBSTR 2.5.13.4 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.12 
+  USAGE userApplications 
+  X-ORIGIN 'IDM-Specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.66
+  NAME 'resDayTime' 
+  DESC 'Access Time to this Ressource' 
+  EQUALITY 2.5.13.2 
+  ORDERING 2.5.13.3 
+  SUBSTR 2.5.13.4 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  USAGE userApplications 
+  X-APPROX '1.3.6.1.4.1.26027.1.4.1' 
+  X-ORIGIN 'IDM-Specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.67
+  NAME 'resAccessMode' 
+  DESC 'How to access this ressource' 
+  EQUALITY 2.5.13.2 
+  ORDERING 2.5.13.3 
+  SUBSTR 2.5.13.4 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  USAGE userApplications 
+  X-APPROX '1.3.6.1.4.1.26027.1.4.1' 
+  X-ORIGIN 'IDM-Specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.68
+  NAME 'resDeviceList' 
+  DESC 'List of devices belonging to this ressourceGroup' 
+  SUP 2.5.4.49 
+  EQUALITY 2.5.13.1 
+  SUBSTR 2.5.13.4 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.12 
+  USAGE userApplications 
+  X-ORIGIN 'IDM-Specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.69
+  NAME 'resDefinition' 
+  DESC 'labeledURI: Ressource Definition' 
+  EQUALITY 2.5.13.2 
+  ORDERING 2.5.13.3 
+  SUBSTR 2.5.13.4 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  SINGLE-VALUE 
+  USAGE userApplications 
+  X-APPROX '1.3.6.1.4.1.26027.1.4.1' 
+  X-ORIGIN 'IDM-Specials'
+  )
+attributeTypes: ( 1.3.6.1.4.1.739.4000.1.70 
+  NAME 'resDriver' 
+  DESC 'labeledURI: Ressource Driver' 
+  EQUALITY 2.5.13.2 
+  ORDERING 2.5.13.3 
+  SUBSTR 2.5.13.4 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+  SINGLE-VALUE 
+  USAGE userApplications 
+  X-APPROX '1.3.6.1.4.1.26027.1.4.1' 
+  X-ORIGIN 'IDM-Specials'
+  )
+objectClasses: ( 1.3.6.1.4.1.739.4000.2.1 
+  NAME 'scPerson' 
+  DESC 'KU/Soendre Campus User' 
+  SUP inetOrgPerson 
+  STRUCTURAL 
+  MAY ( scPhoneID 
+  $ scHumAccount 
+  $ scTTA 
+  $ scTTD 
+  $ scEgressVLAN 
+  $ scMailDestination 
+  $ scActive 
+  $ idcSectorXmaster 
+  $ scPhondex 
+  $ scMailAlias 
+  $ idcSectorXaux 
+  $ idcSectorX 
+  $ idcNumber 
+  $ wsMac 
+  $ scPrefGroups 
+  $ scVLAN 
+  $ scMailAccept 
+  $ sshPublicKey 
+  $ scLMPassword
+  $ scVlanName ) 
+  X-ORIGIN 'SC-specials'
+  )
+objectClasses: ( 1.3.6.1.4.1.739.4000.2.2 
+  NAME ( 'scWorkstation' 'scDevice' ) 
+  DESC 'Work Station or other net-connected device registered at KU/Soendre Campus User' 
+  SUP top 
+  STRUCTURAL 
+  MUST ( macRegTtd 
+  $ uid 
+  $ macRegistered 
+  $ cn 
+  $ scVLAN ) 
+  MAY ( scPhoneID 
+  $ scEgressVLAN 
+  $ description 
+  $ owner 
+  $ host ) 
+  X-ORIGIN 'SC-specials'
+  )
+objectClasses: ( 1.3.6.1.4.1.739.4000.2.3 
+  NAME 'scGroup' 
+  DESC 'Group with special SC-privileges' 
+  SUP ( groupOfUniqueNames ) 
+  STRUCTURAL 
+  MAY ( scTTW
+  $ scMailDestination
+  $ scMaxMembers
+  $ scUclass
+  $ scMailAlias
+  $ scTTA
+  $ scVLAN
+  $ memberUid
+  $ scTTE
+  $ scSct
+  $ scTTD 
+  $ scMailAccept
+  $ scDpt 
+  $ scFac
+  $ scUtype
+  $ userClass ) 
+  X-ORIGIN 'SC-specials'
+  )
+objectClasses: ( 1.3.6.1.4.1.739.4000.2.4 
+  NAME 'scResource' 
+  DESC 'Generalised Resource Description and Control' 
+  SUP top 
+  STRUCTURAL 
+  MUST ( resourceType 
+  $ cn 
+  $ userClass ) 
+  MAY ( labeledURI 
+  $ scTTD 
+  $ scTTA 
+  $ resourceAction 
+  $ resourceStatusDesc 
+  $ resourceParam0 
+  $ resourceParam1 
+  $ displayName 
+  $ description 
+  $ uid 
+  $ resourceParam2 
+  $ seeAlso 
+  $ resourceParam4 
+  $ scTTW 
+  $ resourceStatus 
+  $ resourceParam3 
+  $ scTTE 
+  $ resourceMax 
+  $ owner 
+  $ gid 
+  $ ou 
+  $ resourceParam9 
+  $ o 
+  $ resourceParam8 
+  $ resourceParam7 
+  $ resourceParam6 
+  $ macAddress 
+  $ resourceParam5 ) 
+  X-ORIGIN 'SC-Specials'
+  )
+objectClasses: ( 1.3.6.1.4.1.739.4000.2.5 
+  NAME 'scResourceDefinition' 
+  DESC 'Possible attributes to scResource' 
+  SUP top 
+  STRUCTURAL 
+  MUST ( cn 
+  $ userClass ) 
+  MAY ( description 
+  $ gid ) 
+  X-ORIGIN 'SC-Special'
+  )
+objectClasses: ( 1.3.6.1.4.1.739.4000.2.6 
+  NAME 'scGuest' 
+  DESC 'SC Guest' 
+  SUP ( top $ scPerson ) 
+  STRUCTURAL 
+  MAY ( scTTE
+  $ scDpt
+  $ scRequest
+  $ reqExpire
+  $ scTTW
+  $ scFac
+  $ reqComment
+  $ scStatus
+  $ reqActivate
+  $ reqApprover
+  $ reqApproveDate
+  $ scSct
+  $ scPrevStat
+  $ co
+  $ scConfirm
+  $ userClass
+  $ scVlanName ) 
+  X-ORIGIN 'SC-Specials'
+  )
+objectClasses: ( 1.3.6.1.4.1.739.4000.2.7 
+  NAME 'dhcpHostSC' 
+  DESC 'SC udvidelse af dhcpHost med VLAN m.v.' 
+  SUP ( top 
+  $ dhcpHost ) 
+  STRUCTURAL 
+  MUST uid 
+  MAY ( scTTE 
+  $ scTTD 
+  $ scTTA 
+  $ wsMac 
+  $ scVLAN ) 
+  X-ORIGIN 'SC-specials'
+  )
+objectClasses: ( 1.3.6.1.4.1.739.4000.2.8
+  NAME 'resGroup' 
+  DESC 'Ressource Group' 
+  SUP ( 2.5.6.0 ) 
+  STRUCTURAL 
+  MUST ( resType 
+  $ cn ) 
+  MAY ( resApprover 
+  $ resDriver 
+  $ resAccessGroup 
+  $ resAccessMode 
+  $ resAuthenticate 
+  $ resDeviceList 
+  $ resDayTime 
+  $ resDefinition 
+  $ resOwner ) 
+  X-ORIGIN 'IDM-Specials'
+  )
+objectClasses: ( 1.3.6.1.4.1.739.4000.2.9
+  NAME 'scParkingSpace' 
+  DESC 'Reserved South Campus Parking Space' 
+  SUP ( 2.5.6.0 ) 
+  STRUCTURAL 
+  MUST ( uid 
+  $ carLicense ) 
+  MAY ( scTTA 
+  $ scTTE 
+  $ scTTW 
+  $ scTTD ) 
+  X-ORIGIN 'IDM-Specials'
+  )

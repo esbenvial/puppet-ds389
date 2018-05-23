@@ -1,0 +1,8 @@
+dn: cn=RSA,cn=encryption,cn=config
+changetype: add
+objectclass: top
+objectclass: nsEncryptionModule
+cn: RSA
+nsSSLPersonalitySSL: <%= @cert_name %>
+nsSSLToken: internal (software)
+nsSSLActivation: on

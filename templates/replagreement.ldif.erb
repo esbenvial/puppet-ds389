@@ -1,0 +1,13 @@
+dn: cn=<%= @replication_aggrement %>,cn=replica,cn="<%= @suffix %>",cn=mapping tree,cn=config
+changetype: add
+objectclass: top
+objectclass: nsds5replicationagreement
+cn: <%= @replication_aggrement %>
+nsds5replicahost: <%= @replication_host %>
+nsds5replicaport: 389
+nsds5ReplicaBindDN: cn=replication manager,cn=config
+nsds5replicabindmethod: SIMPLE
+nsds5replicaroot: <%= @suffix %>
+description: <%= @fqdn %> -> <%= @replication_host %>
+nsDS5ReplicaCredentials: <%= @repl_pass %>
+nsDS5ReplicaTransportInfo: TLS

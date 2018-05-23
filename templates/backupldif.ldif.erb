@@ -1,0 +1,7 @@
+dn: cn=ldif_backup,cn=export,cn=tasks,cn=config
+objectclass: extensibleObject
+cn: ldif_backup
+nsInstance: userRoot
+nsFilename: /backup/<%= @hostname %>/<%= @instance %>/backup.ldif
+nsExportReplica: true
+nsIncludeSuffix: <%= @suffix %>

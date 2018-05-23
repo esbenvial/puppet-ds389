@@ -1,0 +1,6 @@
+dn: cn=db_backup,cn=backup,cn=tasks,cn=config
+changetype: add
+objectclass: extensibleObject
+cn: db_backup
+nsArchiveDir: /backup/<%= @hostname %>/<%= @instance %>/
+nsDatabaseType: ldbm database
