@@ -60,7 +60,7 @@ class ds389 (
     ]
   }
 
-  exec { '$instance':
+  exec { $instance:
     creates => "/etc/dirsrv/${instance}",
     command => "/usr/sbin/setup-ds-admin.pl --file=/tmp/setup.inf --silent --logfile=/etc/dirsrv/${instance}.log",
     require => [
@@ -68,9 +68,7 @@ class ds389 (
         Sysctl['net.ipv4.tcp_keepalive_time'],
       ]
   }
-file { "/home/text.txt":
-  source => "http://www.example.com/text.txt",
-}
+
   $ssl_ca_location = '/etc/pki/tls/certs/dirsrv-ca.pem'
 
   file { 'globalsign-root':
@@ -167,38 +165,38 @@ file { "/home/text.txt":
     require => Exec[$instance],
   }
 
-  exec { "${instance-ssl}":
+  exec { "${instance}-ssl":
     command => "/usr/bin/ldapmodify -x -D \"cn=Directory Manager\" -w ${rootdnpasswd} -f /tmp/ssl.ldif -H 'ldap://localhost'",
     unless  => "/usr/bin/grep 'nsslapd-security: on' ${instance_dir}/dse.ldif",
     require => [ Exec[$instance], Nsstools::Add_cert_and_key[$cert_name] ],
     notify  => Service["dirsrv@${::hostname}"],
   }
 
-  exec { "${instance-rsa}":
+  exec { "${instance}-rsa":
     command => "/usr/bin/ldapmodify -x -D \"cn=Directory Manager\" -w ${rootdnpasswd} -f /tmp/rsa.ldif -H 'ldap://localhost'",
     unless  => "/usr/bin/grep 'nsSSLActivation: on' ${instance_dir}/dse.ldif",
     require => [
-        Exec[$instance-ssl],
+        Exec["${instance}-ssl"],
       ],
     notify  => Service["dirsrv@${::hostname}"],
   }
 
   if false {
-    exec { "${instance-admin-replica}":
+    exec { "${instance}-admin-replica":
       command => "/usr/bin/ldapmodify -x -D \"cn=Directory Manager\" -w ${rootdnpasswd} -f /tmp/replica-admin.ldif -H 'ldap://localhost'",
       unless  => "/usr/bin/grep 'cn=replica,cn=\"o=netscaperoot\",cn=mapping tree,cn=config' ${instance_dir}/dse.ldif",
       require => [
-          Exec[$instance-rsa],
+          Exec["${instance}-rsa"],
         ],
       notify  => Service["dirsrv@${::hostname}"],
     }
 
 
-    exec { "${instance-admin-replagreement}":
+    exec { "${instance}-admin-replagreement":
       command => "/usr/bin/ldapmodify -x -D \"cn=Directory Manager\" -w ${rootdnpasswd} -f /tmp/replagreement-admin.ldif -H 'ldap://localhost'",
       unless  => "/usr/bin/grep 'cn=<%= @replication_aggrement %>,cn=replica,cn=\"o=netscaperoot\",cn=mapping tree,cn=config' ${instance_dir}/dse.ldif",
       require => [
-          Exec[$instance-admin-replica],
+          Exec["${instance}-admin-replica"],
         ],
       notify  => Service["dirsrv@${::hostname}"],
     }
